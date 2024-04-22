@@ -1,10 +1,27 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). <br>
+This web application aka movie platform allows user to look up the currently playing movies and save some oh his/hers favourite movies (realised via local storage see below). It also allows the user to click on the movie poster to see the details about the movies well as the reviews for this movie.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+1. Installation
+2. Technologies Used
+3. Architecture
+4. Further Improvements
+
+## Installation
+
+
+```bash
+# Clone the repository
+git clone https://github.com/ZinaRotgauz/movie-db-test.git
+
+# Navigate to the project directory
+cd movie-db-test
+
+# Install dependencies
+npm install
 
 ### `npm start`
 
@@ -14,58 +31,76 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+# Project Architecture Overview
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Hierarchy
+The application follows a hierarchical structure that enhances maintainability and ease of navigation:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- `src/`: Main source directory for development code.
+  - `components/`: UI building blocks of the application, each subdirectory represents a self-contained component. It contains components such as<br>
+    - "MovieGrid"
+      - Props:
+      - `movies`: An array of movie objects to be displayed.
+      - `onClickFavourite`: A function that handles the event when the favorite button is clicked.
+      - `favourites`: An array of IDs representing the user's favorite movies.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+      - Functionality:
+        - Maps over the `movies` array to render individual `MovieCard` components.
+        - Each `MovieCard` receives properties such as the movie's ID, title, dynamically constructed image URL, and a boolean indicating whether the movie is a favorite.
+        - An `onClick` event is attached to each `MovieCard` to trigger the `onClickFavourite` function with the corresponding movie's ID.
 
-### `npm run eject`
+      - Styling:
+        - Also uses styled-components to manage styles, ensuring consistency and modularity in the design.
+    - "MovieCard"
+      - **Props**:
+        - `title`: The title of the movie.
+        - `image`: The URL of the movie's poster image.
+        - `onClickFavourite`: The function to be called when the favorite icon is clicked.
+        - `isFavourite`: A boolean that determines if the movie is marked as a favorite.
+        - `id`: The unique identifier for the movie.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+      - **Layout**:
+        - A wrapping element contains the entire movie card layout, including the favorite icon and movie details.
+        - The favorite icon is conditionally styled to indicate whether the movie is a favorite.
+        - Includes a clickable link that wraps the movie's image and title, likely leading to a detailed view of the movie.
+      - **Styling**:
+        - Also uses styled-components to manage styles
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    - `pages/`: Represents the  pages "MainPage" "DetailsPage" of the application.
+      
+    - `services/`: Contains logic for external interactions, such as API calls with `tmdbService.js`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Component Reusability
+Modularity and reusability are key in our component design. Each component is built to be reused across the application, promoting a consistent user interface and reducing code duplication.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Custom Service
+Instead of depending on npm libraries, the application features a custom service, `tmdbService.js`, to interact with the TMDB API. This approach streamlines the API interaction tailored to the application's specific needs.
 
-## Learn More
+## Routing
+The application utilizes a routing system that corresponds to the structured pages within the `pages/` directory.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## State Management
+To simplify development, the application uses React's `useState` hook for state management within components, opting not to implement a persistent storage solution. This decision was made for development speed and simplicity.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Summary
+Structured with attention to component hierarchy and reusability, the project's architecture is primed for scalability. A custom-built service for API interaction and simplified state management reflect an emphasis on a lightweight code.
 
-### Code Splitting
+# Technologies Used
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **React Framework**: Selected for its wide adoption within the company and the rich ecosystem that facilitates rapid application development.
+- **Styled-Components**: Utilized for enhancing code readability and styling components in a modular and maintainable fashion.
 
-### Analyzing the Bundle Size
+# Further Improvements
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Future updates could include:
 
-### Making a Progressive Web App
+- **Adaptive Design for Mobile**: Allocate approximately 90 minutes to implement responsive design to improve user experience on mobile devices. Right now it is one of my weak sides so I adjust up to 90-120 mnutes
+- **Pagination for Movies Now Playing**: Extend functionality to add server-side pagination for the list of currently playing movies. This feature was initially omitted due to the extra time required for setting up an account with the API provider to manage favorite movies persistently. However, pagination has been implemented for reviews as a starting point, and this could be extended to other parts of the application with an estimated time investment of 90-120 minutes.
+- - **SearchBar**: Although the logic was relised in the earlier version of this project, I decided to set that aside due to the lack of time
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 "# movie-db-test" 

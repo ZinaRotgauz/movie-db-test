@@ -41,7 +41,7 @@ The application follows a hierarchical structure that enhances maintainability a
 
 - `src/`: Main source directory for development code.
   - `components/`: UI building blocks of the application, each subdirectory represents a self-contained component. It contains components such as<br>
-    - "MovieGrid"
+    - `MovieGrid`
       - Props:
       - `movies`: An array of movie objects to be displayed.
       - `onClickFavourite`: A function that handles the event when the favorite button is clicked.
@@ -54,7 +54,7 @@ The application follows a hierarchical structure that enhances maintainability a
 
       - Styling:
         - Also uses styled-components to manage styles, ensuring consistency and modularity in the design.
-    - "MovieCard"
+    - `MovieCard`
       - **Props**:
         - `title`: The title of the movie.
         - `image`: The URL of the movie's poster image.
@@ -68,7 +68,20 @@ The application follows a hierarchical structure that enhances maintainability a
         - Includes a clickable link that wraps the movie's image and title, likely leading to a detailed view of the movie.
       - **Styling**:
         - Also uses styled-components to manage styles
+    - `ReviewCard` Component
+      - **Props**:
+        - `author_details`: An object containing:
+        - `avatar_path`: Path segment to construct the full URL to the author's avatar image.
+        - `username`: The name of the user who wrote the review.
+        - `rating`: The rating given by the user to the movie.
+        - `content`: The actual text content of the review.
+        - `updated_at`: The timestamp indicating when the review was last updated.
 
+      - **Functionality**:
+        - Constructs the avatar URL using Gravatar's service and the provided `avatar_path`.
+        - Displays the `username` and the `rating` alongside the avatar.
+        - Parses and renders the `content` of the review, which allows for HTML content to be safely inserted into the DOM.
+        - Shows the `updated_at` date to inform users when the review was last edited.
     - `pages/`: Represents the  pages "MainPage" "DetailsPage" of the application.
       
     - `services/`: Contains logic for external interactions, such as API calls with `tmdbService.js`.
